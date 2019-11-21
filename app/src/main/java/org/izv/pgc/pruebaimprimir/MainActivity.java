@@ -31,6 +31,10 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     private Button bt1, bt2;
 
+    public static int width;
+    public static int height;
+    public static Bitmap bm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +59,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        int offset = 50;
+        bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.logo);
+        width = bm.getWidth();
+        height = bm.getHeight();
 
-        Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.logo);
-
-        Bitmap defBitmap = Bitmap.createBitmap(bm.getWidth() + offset / 2, bm.getHeight() + offset / 2, Bitmap.Config.ARGB_8888);
     }
 
     private void doPrint() {
@@ -188,19 +191,14 @@ public class MainActivity extends AppCompatActivity {
             int separadorEstandar = 100;
 
             // 1081 x 321 dimensiones del logo
-            Canvas cv = page.getCanvas();
 
+            int offset = 2;
+            // int width = MainActivity.width / 2;
+            // int hegiht = MainActivity.height / 2;
 
-            /*
-            Paint paint = new Paint();
-            paint.setColor(Color.BLACK);
-            paint.setTextSize(36);
-            canvas.drawText("Test Title", leftMargin, titleBaseLine, paint);
+            // Muestra el logo
+            //canvas.drawBitmap(MainActivity.bm, offset, offset, null);
 
-
-            paint.setTextSize(11);
-            canvas.drawText("Test paragraph", leftMargin, titleBaseLine + 25, paint);
-            */
 
             Paint title = new Paint();
             title.setColor(Color.BLACK);
@@ -225,87 +223,97 @@ public class MainActivity extends AppCompatActivity {
             title.setTextSize(20);
             canvas.drawText("────────────────────────────────────", leftMargin, separadorEstandar + 115, title);
 
-            /*
 
-            for (int i = 0; i < comanda.size(); i++){
+            int comanda = 215;
+            int separador = 30;
+
+            for (int i = 0; i < 8; i++){
+                comanda = comanda + separador;
                 title.setTextSize(23);
-                canvas.drawText(num, leftMargin, separadorEstandar + 140, title);
+                canvas.drawText("2", leftMargin, comanda, title);
                 title.setTextSize(23);
-                canvas.drawText(producto, leftMidMargin, separadorEstandar + 140, title);
+                canvas.drawText("Coca-Cola", leftMidMargin, comanda, title);
                 title.setTextSize(23);
-                canvas.drawText(precio, rightMidMargin, separadorEstandar + 140, title);
+                canvas.drawText("2,20", rightMidMargin, comanda, title);
                 title.setTextSize(23);
-                canvas.drawText(precioTotal = precioTotal * num, rightMargin, separadorEstandar + 140, title);
+                canvas.drawText("4,40", rightMargin, comanda, title);
             }
 
-            */
-
-            title.setTextSize(23);
-            canvas.drawText("2", leftMargin, separadorEstandar + 140, title);
-            title.setTextSize(23);
-            canvas.drawText("Coca-Cola", leftMidMargin, separadorEstandar + 140, title);
-            title.setTextSize(23);
-            canvas.drawText("2,20", rightMidMargin, separadorEstandar + 140, title);
-            title.setTextSize(23);
-            canvas.drawText("4,40", rightMargin, separadorEstandar + 140, title);
-
-            title.setTextSize(23);
-            canvas.drawText("2", leftMargin, separadorEstandar + 170, title);
-            title.setTextSize(23);
-            canvas.drawText("Rosca", leftMidMargin, separadorEstandar + 170, title);
-            title.setTextSize(23);
-            canvas.drawText("3,80", rightMidMargin, separadorEstandar + 170, title);
-            title.setTextSize(23);
-            canvas.drawText("7,60", rightMargin, separadorEstandar + 170, title);
-
-            title.setTextSize(23);
-            canvas.drawText("4", leftMargin, separadorEstandar + 195, title);
-            title.setTextSize(23);
-            canvas.drawText("Cerveza", leftMidMargin, separadorEstandar + 195, title);
-            title.setTextSize(23);
-            canvas.drawText("3", rightMidMargin, separadorEstandar + 195, title);
-            title.setTextSize(23);
-            canvas.drawText("12", rightMargin, separadorEstandar + 195, title);
-
-            title.setTextSize(23);
-            canvas.drawText("1", leftMargin, separadorEstandar + 220, title);
-            title.setTextSize(23);
-            canvas.drawText("Postre", leftMidMargin, separadorEstandar + 220, title);
-            title.setTextSize(23);
-            canvas.drawText("5", rightMidMargin, separadorEstandar + 220, title);
-            title.setTextSize(23);
-            canvas.drawText("5", rightMargin, separadorEstandar + 220, title);
-
+            separador = 24;
+            comanda = comanda + separador;
+            // Separacion 24
             title.setTextSize(20);
-            canvas.drawText("────────────────────────────────────", leftMargin, separadorEstandar + 244, title);
+            canvas.drawText("────────────────────────────────────", leftMargin, comanda, title);
+
+            separador = 30;
+            comanda = comanda + separador;
 
             title.setTextSize(33);
-            canvas.drawText("TOTAL EUROS", leftMargin, separadorEstandar + 274, title);
+            canvas.drawText("TOTAL EUROS", leftMargin, comanda, title);
 
             title.setTextSize(33);
-            canvas.drawText("29,00", rightMargin - 20, separadorEstandar + 274, title);
+            canvas.drawText("29,00", rightMargin - 20, comanda, title);
+
+            separador = 24;
+            comanda = comanda + separador;
 
             title.setTextSize(20);
-            canvas.drawText("────────────────────────────────────", leftMargin, separadorEstandar + 304, title);
+            canvas.drawText("────────────────────────────────────", leftMargin, comanda, title);
+
+            separador = 30;
+
+            comanda = comanda + separador;
 
             title.setTextSize(21);
-            canvas.drawText("Email", leftMargin, separadorEstandar + 334, title);
+            canvas.drawText("Camarero", leftMargin, comanda, title);
             title.setTextSize(21);
-            canvas.drawText("Telefono", rightMargin, separadorEstandar + 334, title);
+            canvas.drawText("Jaime", rightMargin, comanda, title);
 
+            comanda = comanda + separador;
 
-            //title.setTextSize();
+            title.setTextSize(21);
+            canvas.drawText("Hora Inicio", leftMargin, comanda, title);
+            title.setTextSize(21);
+            canvas.drawText("14:32", rightMargin, comanda, title);
+
+            comanda = comanda + separador;
+
+            title.setTextSize(21);
+            canvas.drawText("Hora Fin", leftMargin, comanda, title);
+            title.setTextSize(21);
+            canvas.drawText("17:50", rightMargin, comanda, title);
+
+            separador = 24;
+            comanda = comanda + separador;
+
+            title.setTextSize(20);
+            canvas.drawText("────────────────────────────────────", leftMargin, comanda, title);
+
+            // Extras
+            separador = 30;
+            comanda = comanda + separador;
+
+            title.setTextSize(21);
+            canvas.drawText("Email", leftMargin, comanda, title);
+            title.setTextSize(21);
+            canvas.drawText("ricondelvergeles@gmail.com", rightMargin - 205, comanda, title);
+
+            comanda = comanda + separador;
+
+            title.setTextSize(21);
+            canvas.drawText("Telefono", leftMargin, comanda, title);
+            title.setTextSize(21);
+            canvas.drawText("958764567", rightMargin - 40, comanda, title);
+
 
 
             // Insertar la imagen
 
-            // Letra: monospace
+            // Letra: monospace | Opcional
 
-            // Dibujar
-            // paint.setColor(Color.BLUE);
-            // canvas.drawRect(leftMargin, 140, 172, 212, paint);
 
 
         }
+
     }
 }
