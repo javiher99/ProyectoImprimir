@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.fonts.Font;
 import android.graphics.pdf.PdfDocument;
@@ -31,8 +32,8 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     private Button bt1, bt2;
 
-    public static int width;
-    public static int height;
+    public static float width;
+    public static float height;
     public static Bitmap bm;
 
     @Override
@@ -59,10 +60,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Sacar imagen para cogerla luego en el canvas
         bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.logo);
-        width = bm.getWidth();
-        height = bm.getHeight();
 
+        // Redimension de imagen
+        bm = redimensionarImagen();
+
+        //width = bm.getWidth();
+        //height = bm.getHeight();
+
+    }
+
+    public Bitmap redimensionarImagen (){
+
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) 550) / width;
+        float scaleHeight = ((float) 150) / height;
+
+        Matrix matrix = new Matrix();
+
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        return Bitmap.createBitmap(bm,0,0, width, height, matrix,false);
     }
 
     private void doPrint() {
@@ -192,21 +212,25 @@ public class MainActivity extends AppCompatActivity {
 
             // 1081 x 321 dimensiones del logo
 
-            int offset = 2;
+            int imagenLeft = 20;
+
             // int width = MainActivity.width / 2;
             // int hegiht = MainActivity.height / 2;
 
             // Muestra el logo
-            //canvas.drawBitmap(MainActivity.bm, offset, offset, null);
+            canvas.drawBitmap(MainActivity.bm, imagenLeft, 0, null);
 
 
             Paint title = new Paint();
+            /*
             title.setColor(Color.BLACK);
             title.setTextSize(50);
             canvas.drawText("Rincon del vergeles", leftMargin, titleBaseLine, title);
 
+             */
+
             title.setTextSize(33);
-            canvas.drawText("Pedidos Realizados", leftMargin, separadorEstandar + 35, title);
+            canvas.drawText("Pedidos Realizados", leftMargin, separadorEstandar + 40, title);
 
             title.setTextSize(20);
             canvas.drawText("────────────────────────────────────", leftMargin, separadorEstandar + 60, title);
@@ -222,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
 
             title.setTextSize(20);
             canvas.drawText("────────────────────────────────────", leftMargin, separadorEstandar + 115, title);
-
 
             int comanda = 215;
             int separador = 30;
@@ -272,14 +295,14 @@ public class MainActivity extends AppCompatActivity {
             comanda = comanda + separador;
 
             title.setTextSize(21);
-            canvas.drawText("Hora Inicio", leftMargin, comanda, title);
+            canvas.drawText("Fecha Inicio", leftMargin, comanda, title);
             title.setTextSize(21);
             canvas.drawText("14:32", rightMargin, comanda, title);
 
             comanda = comanda + separador;
 
             title.setTextSize(21);
-            canvas.drawText("Hora Fin", leftMargin, comanda, title);
+            canvas.drawText("Fecha Fin", leftMargin, comanda, title);
             title.setTextSize(21);
             canvas.drawText("17:50", rightMargin, comanda, title);
 
